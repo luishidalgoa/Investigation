@@ -1,24 +1,36 @@
 package Player;
 import Items.*;
 
-import java.util.ArrayList;
-
 public class Player {
-    private ArrayList<Item> Inventory=new ArrayList<Item>();
-    private String currentScene="BedRoom";
+    private Items Inventory;
+    private String currentScene;
 
     /**
-     * Constructor que crea una copia vacia del ArrayList Items. de este modo podremos luego sumarle o restarle items al inventario
-     * @param Items Recive el ArrayList del metodo ChapterController el cual almacena Todos los ID de los items y propiedades
+     * Contructor que genera un nuevo inventario vacio del jugador y le dice en que posicion inicial esta
+     * @param currentScene Escenario de inicio en el cual se ubica el jugador
      */
-    public Player(ArrayList<Item> Items){
-        Inventory=Items;
+    public Player(String currentScene) {
+        this.currentScene=currentScene;
+        this.Inventory = new Items();
     }
-    public void addItem(int index){
-        Inventory.get(index).setQuantity(1);
-        System.out.println("was successfully added to your inventory "+ Inventory.get(index).getName());
+
+    /**
+     * Metodo que recive el item que agregaremos a nuestro inventario. El metodo addItem se encarga de comprobar si existe
+     * ya ese item y si no existe lo agrega
+     * @param item recive el item que agregara
+     * @param quantity recive la cantidad del item que agregara
+     */
+    public void addItem(Item item, int quantity){
+        Inventory.addItem(item,quantity);
+        System.out.println("was successfully added to your inventory "+ Inventory.searchName(item));
     }
-    public ArrayList<Item> getInventory() {
+    public void removeItem(Item item, int quantity){
+        boolean isTrue=Inventory.removeItem(item,quantity);
+        if(isTrue==false){
+            System.out.println("you haven´t got any "+ Inventory.searchName(item));
+        }
+    }
+    public Items getInventory() {
         return Inventory;
     }
     public String getCurrentScene() {

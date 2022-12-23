@@ -1,34 +1,30 @@
 package Controller;
 import Chapter.*;
+import Items.*;
 import Player.Player;
-import Items.Item;
-import Scene.Home.BedRoom;
-
-import java.util.ArrayList;
 
 public class ChapterController {
-    static String currentChapter="LivingRoom";
-    public static void create(){
-        ArrayList<Item> Items=new ArrayList<>();
-        //Generamos los items del juego
-        Item key=new Item("key","this key oppen the dor"); //0
-        Items.add(key);
-        System.out.println(Items.size());
-        System.out.println(Items.get(0));
+    static String currentChapter;
+    private Player player;
 
-        Player player=new Player(Items);
-        BedRoom bedRoom=new BedRoom(Items);
-        ChapterFlow(player,bedRoom, Items);
+    /**
+     * En este metodo creamos la lista de Items del juego, ademas de crear los items uno a uno y agregarlos a la lista
+     * tambien creamos el jugador . y una vez creado todo entonces se ejecuta el flujo de capitulos
+     */
+    public ChapterController(){
+        this.player = new Player("BedRoom");
+        ChapterFlow();
     }
 
     /**
      * Metodo que ejecutara el primer capitulo. y cuando este finalice avanzara al siguiente hasta finalizar el juego
-     * @param player recive el objeto Player
-     * @param Items recive un arrayList con todos los items del juego
      */
-    public static void ChapterFlow(Player player,BedRoom bedRoom, ArrayList<Item> Items){
+    public void ChapterFlow(){
         currentChapter="Chapter one";
-        Chapter1.Chapter1(player,bedRoom,Items);
+        System.out.println("CHECK INVENTORY "+ player.getInventory().searchQuantity(id.getKeyBedRoom()));
+        Chapter1 Chapter1=new Chapter1();
+        System.out.println("CHECK INVENTORY "+ player.getInventory().searchQuantity(id.getKeyBedRoom()));
+        Chapter1.flowChapter(this.player);
         System.out.println("END");
     }
 }

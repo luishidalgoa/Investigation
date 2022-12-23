@@ -1,13 +1,30 @@
 package Items;
 
+/**
+ * Esta clase construye los items. Es utilizado por la clase id e Items.
+ * almacena las propiedades de cada item como su id
+ */
 public class Item {
+    private int id;
     private String name;
     private String description;
-    private int quantity=0;
+    private int quantity;
 
-    public Item(String name,String desc){
+    /**
+     * Constructor del item
+     * @param id
+     * @param name
+     * @param desc descripcion del item
+     * @param quantity cantidad almacenada
+     */
+    public Item(int id,String name,String desc,int quantity){
+        this.id=id;
         this.name=name;
         this.description=desc;
+        this.quantity=quantity;
+    }
+    public int getId(){
+        return this.id;
     }
     public String getName(){return this.name;}
     public int getQuantity(){
