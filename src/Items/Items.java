@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Items {
     private ArrayList<Item> items;
+    private int count=0;
 
     /**
      * Constructor para crear una nueva lista de Items
@@ -19,19 +20,8 @@ public class Items {
      * @param quantity cantidad del item que agregaremos al ArrayList
      */
     public void addItem(Item item,int quantity) {
-        boolean isTrue=false;
-        if(quantity>0){
-            for(int i=0;i<this.items.size() && isTrue==false;i++) {
-                if(item.getId()==searchId(i)) {
-                    item.setQuantity(quantity);
-                    isTrue=true;
-                }
-            }
-            if(isTrue==false){
-                this.items.add(item);
-                item.setQuantity(quantity);
-            }
-        }
+        this.items.add(this.count,item);
+        count++;
     }
 
     /**
@@ -42,39 +32,53 @@ public class Items {
      * @param quantity cantidad del item que eliminaremos del ArrayList
      * @return devuelve si se ha podido eliminar el objeto
      */
-        public boolean removeItem(Item item,int quantity) {
+        public boolean removeItem(int id,int quantity) {
             boolean isTrue=false;
-            boolean isEnought=true;
             if(quantity<0){
                 for(int i=0;i<this.items.size() && isTrue==false;i++) {
-                    if(item.getId()==searchId(i)) {
-                        if(quantity<=item.getQuantity()){
-                            item.setQuantity(quantity);
+                    if(searchId(i,id)==true) {
+                        if(quantity<this.items.get(i).getQuantity()){
+                            this.items.get(i).setQuantity(quantity);
                             isTrue=true;
-                        }else{isTrue=false;}
+                        }else if(isTrue==false){
+                            this.items.remove(this.items.get(i));
+                        }
                     }
-                }
-                if(isTrue==false && isEnought==true){
-                    this.items.remove(item);
                 }
             }
             return isTrue;
         }
 
     /**
-     * Este metodo recoje el numero de un bucle para devolver el id del objeto que se posiciona en la posicion del ArrayList numero "i"
-     * @param i el numero del bucle que identificara a la posicion del objeto en un ArrayList
+     * Este metodo devuelve el id del item que se encuentra en la posicion i del ArrayList
+     * @param i el numero del item de la posicion del ArrayList
      * @return devuelve el id del objeto ubicado en la posicion "i"
      */
-    public int searchId(int i){
-        int identificador=this.items.get(i).getId();
-        return identificador;
+    public boolean searchId(int i,int id){
+        boolean isTrue=false;
+        if(id==this.items.get(i).getId()){
+            isTrue=true;
+        }
+        return isTrue;
     }
-    public String searchName(Item item){
-        return item.getName();
+    public String searchName(int id){
+        boolean isTrue=false;
+        String name=null;
+        for(int i=0;i<this.items.size() && isTrue==false;i++){
+            if(searchId(i,id)){
+                name=this.items.get(i).getName();
+            }
+        }
+        return name;
     }
-    public int searchQuantity(Item item){
-        return item.getQuantity();
+    public int searchQuantity(int id){
+        int result=-1;
+        for(int i=0;i<items.size();i++){
+            if(searchId(i,id)==true){
+                result=items.get(i).getQuantity();
+            }
+        }
+        return result;
     }
 }
 

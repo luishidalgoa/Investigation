@@ -1,6 +1,10 @@
 package Scene.Home;
 import Items.*;
 import Player.*;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class BedRoom {
     /**
      * Nombre del escenario
@@ -9,7 +13,7 @@ public class BedRoom {
     /**
      * Lista de items del escenario
      */
-    private Items items;
+    private ArrayList<Item> items;
     /**
      * Puerta principal de la habitacion
      */
@@ -27,16 +31,17 @@ public class BedRoom {
      * Constructor que crea una copia vacia de la lista de items. y genera la cantidad de objetos que tendra el escenario
      */
     public BedRoom(){
-        this.items = new Items();
-        this.items.addItem(id.getKeyBedRoom(),1);
-        System.out.println("ArrayList BedRoom "+items.searchQuantity(id.getKeyBedRoom()));
+        this.items=new ArrayList<>();
+        this.items.add(0,GameItems.getKeyBedRoom());
+        this.items.get(0).setQuantity(1);
+        System.out.println("ArrayList BedRoom "+items.get(0).getQuantity());
     }
 
     /**
      * Este metodo devuelve la lista de items del escenario BedRoom
      * @return
      */
-    public Items getItems(){
+    public ArrayList<Item> getItems(){
         return this.items;
     }
 
@@ -47,10 +52,10 @@ public class BedRoom {
      * @param quantity cantidad del item a buscar
      * @return
      */
-    public boolean pickUpItem(Item item,int quantity){
+    public boolean pickUpItem(int id,int quantity){
         boolean isTrue=false;
-        if(this.items.searchQuantity(item)>0){
-            this.items.removeItem(item,quantity);
+        if(this.items.get(id).getQuantity()>0){
+            this.items.get(id).setQuantity(quantity);
             isTrue=true;
         }
         return isTrue;

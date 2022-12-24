@@ -22,12 +22,13 @@ public class Player {
      */
     public void addItem(Item item, int quantity){
         Inventory.addItem(item,quantity);
-        System.out.println("was successfully added to your inventory "+ Inventory.searchName(item));
+        int id=item.getId();
+        System.out.println("was successfully added to your inventory "+ this.Inventory.searchName(id));
     }
-    public void removeItem(Item item, int quantity){
-        boolean isTrue=Inventory.removeItem(item,quantity);
+    public void removeItem(int id, int quantity){
+        boolean isTrue=Inventory.removeItem(id,quantity);
         if(isTrue==false){
-            System.out.println("you haven´t got any "+ Inventory.searchName(item));
+            System.out.println("you haven´t got any "+ Inventory.searchName(id));
         }
     }
     public Items getInventory() {

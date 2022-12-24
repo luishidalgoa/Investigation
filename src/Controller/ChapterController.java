@@ -21,9 +21,9 @@ public class ChapterController {
      */
     public void ChapterFlow(){
         currentChapter="Chapter one";
-        System.out.println("CHECK INVENTORY "+ player.getInventory().searchQuantity(id.getKeyBedRoom()));
+        System.out.println("CHECK INVENTORY "+ player.getInventory().searchQuantity(0));
         Chapter1 Chapter1=new Chapter1();
-        System.out.println("CHECK INVENTORY "+ player.getInventory().searchQuantity(id.getKeyBedRoom()));
+        System.out.println("CHECK INVENTORY "+ player.getInventory().searchQuantity(0));
         Chapter1.flowChapter(this.player);
         System.out.println("END");
     }

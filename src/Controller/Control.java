@@ -1,6 +1,6 @@
 package Controller;
 
-import Items.id;
+import Items.GameItems;
 import Player.*;
 import Scene.Home.BedRoom;
 import Utils.Read;
@@ -14,15 +14,15 @@ public class Control {
              */
             case 1:
                 boolean isTrue;
-                isTrue = bedRoom.pickUpItem(id.getKeyBedRoom(),1);
+                isTrue = bedRoom.pickUpItem(0,1);
                 if (isTrue == true) {
-                    player.addItem(id.getKeyBedRoom(),+1);
+                    player.addItem(GameItems.getKeyBedRoom(),+1);
                 }
                 break;
             case 2:
-                System.out.println("CHECK1 "+ player.getInventory().searchQuantity(id.getKeyBedRoom()));
-                System.out.println("CHECK2 "+ bedRoom.getItems().searchQuantity(id.getKeyBedRoom()));
-                if(player.getInventory().searchQuantity(id.getKeyBedRoom())>0) {
+                System.out.println("CHECK1 "+ player.getInventory().searchName(0));
+                System.out.println("CHECK2 "+ player.getInventory().searchName(0));
+                if(player.getInventory().searchQuantity(0)>0) {
                     bedRoom.setDoor();
                     System.out.println("The door opened.");
                 }else{

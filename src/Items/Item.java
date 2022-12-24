@@ -23,10 +23,19 @@ public class Item {
         this.description=desc;
         this.quantity=quantity;
     }
+    public Item(Item item,int quantity){
+       this.id=item.getId();
+       this.name=item.getName();
+       this.description=item.getDescription();
+       this.quantity=quantity;
+    }
     public int getId(){
         return this.id;
     }
     public String getName(){return this.name;}
+    public String getDescription(){
+        return this.description;
+    }
     public int getQuantity(){
         return this.quantity;
     }
