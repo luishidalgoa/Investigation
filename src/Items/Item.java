@@ -5,10 +5,25 @@ package Items;
  * almacena las propiedades de cada item como su id
  */
 public class Item {
+    /**
+     * Id del objeto
+     */
     private int id;
+    /**
+     * Nombre del objeto
+     */
     private String name;
+    /**
+     * Descripcion del objeto
+     */
     private String description;
+    /**
+     * Cantidad del objeto
+     */
     private int quantity;
+    /**
+     * Nombre de la opcion a imprimir en el menu
+     */
     private String option;
 
     /**

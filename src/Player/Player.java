@@ -25,15 +25,25 @@ public class Player {
      */
     public void addItem(int id, int quantity) {
         Inventory.addItem(id, quantity);
-        System.out.println("was successfully added to your inventory " + this.Inventory.getListItem().get(id).getName());
+        System.out.println("was successfully added to your inventory " + this.Inventory.GameItems.getItem(id).getName());
     }
 
+    /**
+     * Metodo el cual elimina un item en concreto
+     * @param id recive el identificador del item a eliminar
+     * @param quantity cantidad deseada a eliminar
+     */
     public void removeItem(int id, int quantity) {
         boolean isTrue = Inventory.PickUpItem(id, quantity);
-        if (isTrue == false) {
+        if (!isTrue) {
             System.out.println("you haven´t got any " + Inventory.getListItem().get(id).getName());
         }
     }
+
+    /**
+     * Este metodo retorna el Inventario del jugador en forma de ArrayList
+     * @return devuelve el inventario
+     */
 
     public Items getInventory() {
         return Inventory;
@@ -41,8 +51,7 @@ public class Player {
 
     /**
      * Metodo que devuelve el nombre de la escena en la cual se ubica el jugador
-     *
-     * @return
+     * @return devuelve el nombre del escenario en el cual el jugador esta
      */
     public String getCurrentScene() {
         return currentScene;
@@ -50,7 +59,6 @@ public class Player {
 
     /**
      * Metodo que establece el nombre de la escena en la cual el jugador se ha movido
-     *
      * @param currentScene nombre de la escena
      */
     public void setCurrentScene(String currentScene) {

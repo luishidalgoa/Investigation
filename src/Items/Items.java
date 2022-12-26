@@ -1,6 +1,4 @@
 package Items;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Items {
@@ -8,36 +6,48 @@ public class Items {
      * Tendremos una zona en memoria asociada con la zona en memoria del objeto Items.
      * La cual contiene una libreria de todos los items
      */
-    private GameItems GameItems;
+    public GameItems GameItems;
     /**
      * En este ArrayList almacenamos todos los Items. Actua como inventario
      */
     private ArrayList<Item> ListItems;
+    /**
+     * Esta variable incrementara cada vez que se encuentre un item en el arrayList. de este modo conocemos el total de
+     * items en el inventario del escenario o jugador
+     */
     static int count;
 
     /**
      * Este constructor creara desde 0 todos los Items pertinentes . Ademas de una lista Vacia
      */
-    public Items(){ //todo correcto
+    public Items(){
         this.GameItems=new GameItems();
         this.ListItems=new ArrayList<>();
+        this.count=0;
     }
 
     /**
-     * Metodo usado principalmente por control. El cual recivira el id del item a modificar
-     * @param id posicion el el Array que identifica el objeto a buscar
+     * recivie la posicion en el ArrayLIst del item que deseamos alterar. para posteriormente calcula el id del item
+     * y modificarlo en el Inventario del escenario o jugador
+     * @param pos posicion el el ArrayList del item a buscar
      * @return devolvera true o false . Que significa si la operacion a sido exitosa o fracaso
      */
-    public boolean PickUpItem(int id,int quantity){
+    public boolean PickUpItem(int pos,int quantity){ //este metodo podriamos revisionarlo
+        //Ya que importamos la posicion en el ArrayList del item en cuestion. traducimos la posicion en el ArrList por el id buscado
+        pos=searchID(pos);
         boolean isTrue=false;
-        if(ListItems.get(id)!=null && this.GameItems.getItem(id).getQuantity()>0){
-            this.GameItems.getItem(id).setQuantity(-quantity);
+        if(ListItems.get(pos)!=null && this.ListItems.get(pos).getQuantity()>1){
+            this.ListItems.get(pos).setQuantity(-quantity);
             isTrue=true;
-        }else if(ListItems.get(id)!=null){
-            ListItems.remove(id);
+        }else if(ListItems.get(pos)!=null){
+            ListItems.remove(pos);
             isTrue=true;
         }else {
             System.out.println("ERROR NO EXISTE EL ITEM A BORRAR");
+        }
+
+
+        if(isTrue){
         }
         return isTrue;
     }
@@ -48,7 +58,8 @@ public class Items {
      * Si no le sumara la cantidad especificada
      * @param id Recive el id o posicion del objeto a crear
      */
-    public void addItem(int id,int quantity){ //Todo correcto
+    public void addItem(int id,int quantity){
+        //isTrue nos indicara si el item esta creado o no
         boolean isTrue=false;
         try{
             if(this.ListItems.size()==0){

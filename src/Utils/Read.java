@@ -4,6 +4,12 @@ import java.util.Scanner;
 
 public class Read {
     static Scanner sc=new Scanner(System.in);
+
+    /**
+     * Metodo que imprime un mensaje y posteriormente pide al usuario introducir un numero entero
+     * @param msn
+     * @return
+     */
     public static int leeEntero(String msn){
         int numero=0;
         try{

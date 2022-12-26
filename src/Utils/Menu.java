@@ -1,52 +1,53 @@
 package Utils;
 
 
+import java.util.ArrayList;
+
 public class Menu {
-    public static void showMenu(String[] options) {
-        int longitudMaxima = 0;
-        if (options.length == 0) {
-            // Asignamos un nuevo espacio en memoria al arreglo y agregamos el mensaje
-            options = new String[1];
-            options[0] = "No hay opciones disponibles";
+    /**
+     * Menu que muestra un arraylist el cual almacena todos los items interactuables del escenario
+     * ademas de los escenarios a los cuales puedes moverte
+     * @param options
+     */
+    public static void showMenu(ArrayList<String>options) {
+        // Calcula el ancho del cajón según la longitud de la opción más larga
+        int width = 0;
+        for (String option : options) {
+            width = Math.max(width, option.length());
         }
+        width += 2;  // Añade espacio para los caracteres '[' y ']'
 
-        // Calculamos la longitud máxima de las opciones
-        for (String opcion : options) {
-            if (opcion.length() > longitudMaxima) {
-                longitudMaxima = opcion.length();
-            }
-        }
-
-        // Dibujamos el cajón
-        for (int i = 0; i < longitudMaxima + 14; i++) {
-            System.out.print("-");
+        // Dibuja la parte superior del cajón
+        for (int i = 0; i < width+4; i++) {
+            System.out.print("=");
         }
         System.out.println();
-        // Mostramos las opciones del menú
-        System.out.print("|"); // Agregamos una línea en blanco entre el cajón y la primera opción
-        for (int j = 0; j < longitudMaxima + 12; j++) {
-            System.out.print(" ");
-        }
-        System.out.println("|");
-        for (int i = 0; i < options.length; i++) {
-            System.out.print("|    ["+i+"]    " + options[i]);
-            for (int j = 0; j < longitudMaxima - options[i].length(); j++) {
-                System.out.print(" ");
+        // Imprime cada opción del menú
+        int c=0;
+        for (int i = 0; i < options.size(); i++) {
+            String option = options.get(i);
+            System.out.print("| ");
+            if (!option.equals("----INTERACT----") && !option.equals("----MOVE TO----")) {
+                System.out.print("[" +c+ "] ");
+                System.out.print(option);
+                for (int j = 0; j < width - option.length() - 4; j++) {
+                    System.out.print(" ");
+                }
+            } else {
+                System.out.print(option);
+                for (int j = 0; j < width - option.length() ; j++) {
+                    System.out.print(" ");
+                }
+                c--;
             }
             System.out.println(" |");
-            System.out.print("|"); // Agregamos una línea en blanco entre opción y opción
-            for (int j = 0; j < longitudMaxima + 12; j++) {
-                System.out.print(" ");
-            }
-            System.out.println("|");
+            c++;
         }
 
-        // Dibujamos el cajón
-        for (int i = 0; i < longitudMaxima + 14; i++) {
-            System.out.print("-");
+        // Dibuja la parte inferior del cajón
+        for (int i = 0; i < width+4; i++) {
+            System.out.print("=");
         }
         System.out.println();
-
-        System.out.print("Elige una opción: ");
     }
 }

@@ -3,19 +3,38 @@ package Chapter.Chapter1;
 import Chapter.Chapter1.Scene.House.BedRoom;
 import Chapter.Chapter1.Scene.House.LivingRoom;
 import Controller.ControlOptions;
+import Items.Item;
+import Items.Items;
 import Player.Player;
 import Utils.*;
+
+import java.util.ArrayList;
 
 public class Chapter1 {
     private final BedRoom bedRoom;
     private final LivingRoom livingRoom;
+    /**
+     * Atributo usado en otros metodos para almacenar las opciones disponibles en un escenario tras calcularlo
+     */
+    private ArrayList<String> options=new ArrayList<>();
+    /**
+     * Atributo que es usado con el objetivo de apuntar en la misma zona en memoria que el inventario de los escenarios
+     */
+    private Items ArrayListScene;
 
+    /**
+     * Construye los escenarios del capitulo
+     */
     public Chapter1() {
         this.bedRoom = new BedRoom();
         this.livingRoom = new LivingRoom();
     }
 
-    public void flowChapter(Player player) {
+    /**
+     * Metodo encargado de controlar el flujo del capitulo
+     * @param player recive el objeto player
+     */
+    public void flowChapter(Player player) { //podriamos pensar una forma mejor en la cual ejecutar el control de flujo
         player.setCurrentScene("BedRoom");
         boolean end;
         do {
@@ -24,23 +43,53 @@ public class Chapter1 {
         } while (!end);
     }
 
-    public void optionScene(Player player) { //NO FUNCIONAN LAS OPCIONES DE ESCENARIO. IMPLEMENTAR ARRAYLIST
+    /**
+     * Metodo el cual calcula todos los items de un escenario y los lugares a los cuales puede ir el jugador atraves de ese escenario
+     * una vez echos los calculos los envia al metodo Menu.showMenu(). el cual imprimira en pantalla las opciones
+     * @param player importa el objeto Player
+     */
+    public void optionScene(Player player) {
         String[] options;
+        int[]id=null;
+        if(!this.options.isEmpty()){
+            this.options.clear();
+        }// Opcion a ejecutar si el jugador esta en el escenario BedRoom
         if (player.getCurrentScene().equals("BedRoom")) {
-            options = bedRoom.getOptionsItems();
-            int c=options.length-1;
+            this.options.add("----INTERACT----");
+            options=bedRoom.getOptionsItems();
+            for(int i=0;i<bedRoom.getOptionsItems().length;i++){
+                this.options.add(options[i]);
+            }
+            this.options.add("----MOVE TO----");
             for(int i=0;i<bedRoom.getMoveToScene().length;i++){
-                options[c]+=bedRoom.moveTo(i);
-                c++;
+                this.options.add(bedRoom.moveTo(i));
             }
-            Menu.showMenu(options);
-        } else if (player.getCurrentScene().equals("LivingRoom")) {
-            options = livingRoom.getOptionsItems();
-            for(int i=options.length;i<livingRoom.moveTo().length;i++){
-                options[i]+=livingRoom.moveTo();
+            id=bedRoom.getIdItems();
+            this.ArrayListScene=bedRoom.getSceneItems();
+
+        } // Opcion a ejecutar si el escenario es LivingRoom
+        else if (player.getCurrentScene().equals("LivingRoom")) {
+            this.options.add("----INTERACT----");
+            options=livingRoom.getOptionsItems();
+            for(int i=0;i<livingRoom.getOptionsItems().length;i++){
+                this.options.add(options[i]);
             }
-            Menu.showMenu(options);
+            this.options.add("----MOVE TO----");
+            for(int i=0;i<livingRoom.getMoveToScene().length;i++){
+                this.options.add(livingRoom.moveTo(i));
+            }
+            id=livingRoom.getIdItems();
+            this.ArrayListScene=livingRoom.getSceneItems();
         }
-        ControlOptions.ControlOptions();
+        Menu.showMenu(this.options);
+        //Eliminamos del arrayList la opcion Interact y moveTo
+        for(int i=0;i<this.options.size();i++){
+            if(this.options.get(i).equals("----INTERACT----")){
+                this.options.remove(i);
+            }else if(this.options.get(i).equals("----MOVE TO----")){
+                this.options.remove(i);
+            }
+        }
+        ControlOptions.ControlOptions(player,id,ArrayListScene,this.options);
     }
 }
