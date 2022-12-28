@@ -1,16 +1,27 @@
 package Items;
 
 /**
- * Clase que almacena una libreria de items del juego. Estos items son importados en otras clases u objetos
+ * Almacena todos los items del juego
  */
-public class GameItems { //ERROR . LOS ARRAYLIST APUNTAN A ESTOS ITEMS. POR LO QUE SI LA CANTIDAD DE 1 . SUBEN LA DE TODOS. creo que el problema viene de los gets ya que devuelven
-    private static Item keyBedRoom=new Item(0,"key","This key oppen the door of the bedroom",0); //0
-    private static Item keyHouse=new Item(1,"key","This key oppen the door of the house",0); //1
+public class GameItems {
+    /**
+     * Array que actua de libreria de todos los Items del juego. Cada posicion del array es = al id
+     */
+    public Item[]Array=new Item[3];
 
-    public static Item getKeyBedRoom() {
-        return keyBedRoom;
+    /**
+     * Constructor que construye en una posicion del Array. Un nuevo Item
+     * La posicion del array es = al id
+     */
+    public GameItems(){
+        Array[0] = new Item(0, "key", "This key oppen the door of the bedroom", 0, new String[] {"Get key", "key"});
     }
-    public static Item getKeyHouse() {
-        return keyHouse;
+
+    /**
+     * Metodo que devuelve el item con el id buscado
+     * @param pos recive la posicion en el array o id del item que buscamos
+     */
+    public Item getItem(int pos){
+        return Array[pos];
     }
 }
