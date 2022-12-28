@@ -27,7 +27,7 @@ public class Menu {
         for (int i = 0; i < options.size(); i++) {
             String option = options.get(i);
             System.out.print("| ");
-            if (!option.equals("----INTERACT----") && !option.equals("----MOVE TO----")) {
+            if (!option.equals("----INTERACT----") && !option.equals("----MOVE TO----") && !option.equals("----Inventory----")) {
                 System.out.print("[" +c+ "] ");
                 System.out.print(option);
                 for (int j = 0; j < width - option.length() - 4; j++) {

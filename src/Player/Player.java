@@ -5,6 +5,7 @@ import Items.Items;
 public class Player {
     private Items Inventory;
     private String currentScene;
+    public String lastOption;
 
     /**
      * Contructor que genera un nuevo inventario vacio del jugador y le dice en que posicion inicial esta
@@ -44,7 +45,21 @@ public class Player {
      * Este metodo retorna el Inventario del jugador en forma de ArrayList
      * @return devuelve el inventario
      */
-
+    public String[] getOptionsItems(){ //Funciona Correctamente
+        int n=0;
+        int[]id = new int[this.Inventory.getListItem().size()];
+        for(int i=0;i<this.Inventory.getListItem().size();i++){
+            if(this.Inventory.getListItem().get(i)!=null){
+                n++;
+                id[n-1]=i;
+            }
+        }
+        String[]options=new String[n];//este array almacenara todos los comandos de cada item
+        for(int i=0;i<n;i++){
+            options[i]=this.Inventory.getListItem().get(id[i]).getOption(1);
+        }
+        return options;
+    }
     public Items getInventory() {
         return Inventory;
     }

@@ -15,7 +15,7 @@ public class BedRoom {
     /**
      * Este booleano representa una puerta cerrada por defecto
      */
-    private boolean door=false;
+    public boolean door=false;
     /**
      * Array que almacena todos los escenarios accesibles
      */
@@ -27,8 +27,6 @@ public class BedRoom {
      */
     public BedRoom(){
         this.SceneItems=new Items();
-        this.SceneItems.addItem(2,2);
-        this.SceneItems.addItem(1,1);
         this.SceneItems.addItem(0,1);
     }
 
@@ -47,7 +45,7 @@ public class BedRoom {
         }
         String[]options=new String[n];//este array almacenara todos los comandos de cada item
         for(int i=0;i<n;i++){
-            options[i]=this.SceneItems.getListItem().get(id[i]).getOption();
+            options[i]=this.SceneItems.getListItem().get(id[i]).getOption(0);
         }
         return options;
     }

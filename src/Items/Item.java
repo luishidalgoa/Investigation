@@ -24,7 +24,7 @@ public class Item {
     /**
      * Nombre de la opcion a imprimir en el menu
      */
-    private String option;
+    private String[] option=new String[2];
 
     /**
      * Constructor del item
@@ -32,7 +32,7 @@ public class Item {
      * @param desc descripcion del item
      * @param quantity cantidad almacenada
      */
-    public Item(int id,String name,String desc,int quantity,String option){
+    public Item(int id,String name,String desc,int quantity,String[] option){
         this.id=id;
         this.name=name;
         this.description=desc;
@@ -48,7 +48,7 @@ public class Item {
     public void setQuantity(int i){
         this.quantity+=i;
     }
-    public String getOption(){
-        return this.option;
+    public String getOption(int n){
+        return this.option[n];
     }
 }

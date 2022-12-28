@@ -14,9 +14,7 @@ public class GameItems {
      * La posicion del array es = al id
      */
     public GameItems(){
-        Array[0]=new Item(0,"key","This key oppen the door of the bedroom",0,"Get key");
-        Array[1]=new Item(1,"key1","This key oppen the door of the house",0,"Get adios");
-        Array[2]=new Item(2,"Jarron","Este jarron...",0,"Romper jarron");
+        Array[0] = new Item(0, "key", "This key oppen the door of the bedroom", 0, new String[] {"Get key", "key"});
     }
 
     /**

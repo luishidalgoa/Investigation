@@ -3,15 +3,14 @@ package Chapter.Chapter1;
 import Chapter.Chapter1.Scene.House.BedRoom;
 import Chapter.Chapter1.Scene.House.LivingRoom;
 import Controller.ControlOptions;
-import Items.Item;
 import Items.Items;
-import Player.Player;
+import Player.*;
 import Utils.*;
 
 import java.util.ArrayList;
 
 public class Chapter1 {
-    private final BedRoom bedRoom;
+    private final BedRoom  bedRoom;
     private final LivingRoom livingRoom;
     /**
      * Atributo usado en otros metodos para almacenar las opciones disponibles en un escenario tras calcularlo
@@ -21,6 +20,7 @@ public class Chapter1 {
      * Atributo que es usado con el objetivo de apuntar en la misma zona en memoria que el inventario de los escenarios
      */
     private Items ArrayListScene;
+    private comments comments;
 
     /**
      * Construye los escenarios del capitulo
@@ -28,6 +28,7 @@ public class Chapter1 {
     public Chapter1() {
         this.bedRoom = new BedRoom();
         this.livingRoom = new LivingRoom();
+        this.comments=new comments("Chapter1");
     }
 
     /**
@@ -81,6 +82,13 @@ public class Chapter1 {
             id=livingRoom.getIdItems();
             this.ArrayListScene=livingRoom.getSceneItems();
         }
+        if(player.getInventory()!=null){
+            this.options.add("----Inventory----");
+            options=player.getOptionsItems();
+            for(int i=0;i<player.getOptionsItems().length;i++){
+                this.options.add(options[i]);
+            }
+        }
         Menu.showMenu(this.options);
         //Eliminamos del arrayList la opcion Interact y moveTo
         for(int i=0;i<this.options.size();i++){
@@ -90,6 +98,11 @@ public class Chapter1 {
                 this.options.remove(i);
             }
         }
-        ControlOptions.ControlOptions(player,id,ArrayListScene,this.options);
+        ControlOptions.flowOption(player,id,ArrayListScene,this.options);
     }
 }
+/**
+ * HACER OPERATIVO EL MENU INVENTORY. ADEMAS DE EXTRAER TODOS LOS ITEMS DEL ARRAYLIST INVENTORY
+ *
+ * Encontrar alguna forma de convertir una opcion interactuable que no es un item en una opcion en el menu
+ */

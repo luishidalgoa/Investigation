@@ -39,7 +39,7 @@ public class LivingRoom {
         }
         String[]options=new String[n];//este array almacenara todos los comandos de cada item
         for(int i=0;i<n;i++){
-            options[i]=this.SceneItems.getListItem().get(id[i]).getOption();
+            options[i]=this.SceneItems.getListItem().get(id[i]).getOption(0);
         }
         return options;
     }
