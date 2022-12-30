@@ -1,5 +1,6 @@
 package Items;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Items {
     /**
@@ -92,9 +93,38 @@ public class Items {
         }
         return pos;
     }
+
+    /**
+     * Mostramos el id del item segun el nombre de la opcion que contenga en la posicion del array "option" indicado
+     * @param option nombre de la opcion
+     * @param pos posicion en la cual esta
+     * @return devuelve el id del nombre de esa opcion conocida
+     */
+    public int searchId(String option,int pos){
+        int id=-1;
+        for(int i=0;i<this.ListItems.size();i++){
+            if(this.ListItems.get(i).getOption(pos).equals(option)){
+                id=i;
+            }
+        }
+        return id;
+    }
     /**
      * Metodo que devuelve el ArrayList con todos los items registrados en el Inventario del objeto x
      * @return
      */
     public ArrayList<Item> getListItem(){return this.ListItems;}
+    /**
+     * Extrae todos los id de los items almacenados en el escenario. De este modo podemos extraer el id del item
+     * y asignarle en controlOptions su correspondiente comando
+     * @return
+     */
+    public ArrayList<Integer> getIdItems(ArrayList<Integer>id){ //Funciona Correctamente
+        for(int i=0;i<this.ListItems.size();i++){
+            if(this.ListItems.get(i)!=null){
+                id.add(this.ListItems.get(i).getId());
+            }
+        }
+        return id;
+    }
 }

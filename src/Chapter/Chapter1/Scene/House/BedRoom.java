@@ -1,5 +1,6 @@
 package Chapter.Chapter1.Scene.House;
 import Items.*;
+import Items.Objects.Objects;
 
 import java.util.ArrayList;
 
@@ -13,9 +14,10 @@ public class BedRoom {
      */
     private Items SceneItems;
     /**
-     * Este booleano representa una puerta cerrada por defecto
+     * Este ArrayList representara los objetos del escenario interactuables como un cajon, o una puerta..
+     * Estos objetos podrian almacenar items que podran ser recojidos si estos estan en true
      */
-    public boolean door=false;
+    private ArrayList<Objects>Objects;
     /**
      * Array que almacena todos los escenarios accesibles
      */
@@ -27,6 +29,8 @@ public class BedRoom {
      */
     public BedRoom(){
         this.SceneItems=new Items();
+        this.Objects=new ArrayList<>();
+        this.Objects.add(new Objects("table","open drawer of table",false,new int[] {0},new int[] {1}));
         this.SceneItems.addItem(0,1);
     }
 
@@ -64,6 +68,7 @@ public class BedRoom {
         return id;
     }
 
+
     /**
      * Este metodo recive la posicion del array que identifica a la habitacion a la cual se mueve el jugador
      * @param i posicion del array moveToScene de la clase BedRoom.
@@ -82,4 +87,5 @@ public class BedRoom {
     public Items getSceneItems(){
         return this.SceneItems;
     }
+    public ArrayList<Objects> getObjects(){return this.Objects;}
 }

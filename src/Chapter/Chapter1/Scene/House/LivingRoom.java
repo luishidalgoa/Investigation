@@ -1,6 +1,7 @@
 package Chapter.Chapter1.Scene.House;
 
 import Items.Items;
+import Items.Objects.Objects;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,11 @@ public class LivingRoom {
      */
     private Items SceneItems;
     /**
+     * Este ArrayList representara los objetos del escenario interactuables como un cajon, o una puerta..
+     * Estos objetos podrian almacenar items que podran ser recojidos si estos estan en true
+     */
+    private ArrayList<Objects>Objects;
+    /**
      * Array que almacena todos los escenarios accesibles
      */
     private String[]moveToScene={"BedRoom"};
@@ -24,6 +30,7 @@ public class LivingRoom {
      */
     public LivingRoom(){
         this.SceneItems=new Items();
+        this.Objects=new ArrayList<>();
     }
 
     /**
@@ -77,4 +84,5 @@ public class LivingRoom {
     public Items getSceneItems(){
         return this.SceneItems;
     }
+    public ArrayList<Objects> getObjects(){return this.Objects;}
 }

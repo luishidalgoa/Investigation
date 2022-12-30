@@ -4,6 +4,7 @@ import Chapter.Chapter1.Scene.House.BedRoom;
 import Chapter.Chapter1.Scene.House.LivingRoom;
 import Controller.ControlOptions;
 import Items.Items;
+import Items.Objects.Objects;
 import Player.*;
 import Utils.*;
 
@@ -20,7 +21,10 @@ public class Chapter1 {
      * Atributo que es usado con el objetivo de apuntar en la misma zona en memoria que el inventario de los escenarios
      */
     private Items ArrayListScene;
-    private comments comments;
+    private ArrayList<Objects> ObjectScene;
+    /**
+     * Almacena en un ArrayList todos los id de los items del escenario
+     */
     private ArrayList<Integer>id=new ArrayList<>();
 
     /**
@@ -29,7 +33,6 @@ public class Chapter1 {
     public Chapter1() {
         this.bedRoom = new BedRoom();
         this.livingRoom = new LivingRoom();
-        this.comments=new comments("Chapter1");
     }
 
     /**
@@ -56,18 +59,21 @@ public class Chapter1 {
         if(!this.options.isEmpty()){
             this.options.clear();
         }// Opcion a ejecutar si el jugador esta en el escenario BedRoom
+        this.options.add("    "+player.getCurrentScene()+"    ");
         if (player.getCurrentScene().equals("BedRoom")) {
             this.options.add("----INTERACT----");
             options=bedRoom.getOptionsItems();
             for(int i=0;i<bedRoom.getOptionsItems().length;i++){
                 this.options.add(options[i]);
             }
+            this.options.add("more");
             this.options.add("----MOVE TO----");
             for(int i=0;i<bedRoom.getMoveToScene().length;i++){
                 this.options.add(bedRoom.moveTo(i));
             }
             id=bedRoom.getIdItems(id);
             this.ArrayListScene=bedRoom.getSceneItems();
+            this.ObjectScene=bedRoom.getObjects();
 
         } // Opcion a ejecutar si el escenario es LivingRoom
         else if (player.getCurrentScene().equals("LivingRoom")) {
@@ -76,24 +82,30 @@ public class Chapter1 {
             for(int i=0;i<livingRoom.getOptionsItems().length;i++){
                 this.options.add(options[i]);
             }
+            this.options.add("more");
             this.options.add("----MOVE TO----");
             for(int i=0;i<livingRoom.getMoveToScene().length;i++){
                 this.options.add(livingRoom.moveTo(i));
             }
             id=livingRoom.getIdItems(id);
             this.ArrayListScene=livingRoom.getSceneItems();
+            this.ObjectScene=livingRoom.getObjects();
         }
+        //Almacenamos todos los items del inventario del jugador
         if(player.getInventory()!=null){
             this.options.add("----Inventory----");
             options=player.getOptionsItems();
             for(int i=0;i<player.getOptionsItems().length;i++){
                 this.options.add(options[i]);
             }
-            id=player.getIdItems(id);
+            id=player.getInventory().getIdItems(id);
         }
-        Menu.showMenu(this.options);
+        Menu.showMenu(player, this.options);
         //Eliminamos del arrayList la opcion Interact y moveTo
         for(int i=0;i<this.options.size();i++){
+            if(this.options.get(i).equals("    "+player.getCurrentScene()+"    ")){
+                this.options.remove(i);
+            }
             if(this.options.get(i).equals("----INTERACT----")){
                 this.options.remove(i);
             }
@@ -104,9 +116,9 @@ public class Chapter1 {
                 this.options.remove(i);
             }
         }
-        ControlOptions.flowOption(player,id,ArrayListScene,this.options);
+        ControlOptions.flowOption(player,id,ArrayListScene,this.options,this.ObjectScene);
     }
 }
 /**
- * Encontrar alguna forma de convertir una opcion interactuable que no es un item en una opcion en el menu
+ * Debemos desarrollar el menu "more"
  */

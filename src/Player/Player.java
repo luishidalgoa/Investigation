@@ -62,19 +62,6 @@ public class Player {
         }
         return options;
     }
-
-    /**
-     * Metodo el cual devolvera uno a uno el id de los items que contiene
-     * @return
-     */
-    public ArrayList<Integer> getIdItems(ArrayList<Integer>id){ //Funciona Correctamente
-        for(int i=0;i<this.Inventory.getListItem().size();i++){
-            if(this.Inventory.getListItem().get(i)!=null){
-                id.add(this.Inventory.getListItem().get(i).getId());
-            }
-        }
-        return id;
-    }
     public Items getInventory() {
         return Inventory;
     }
