@@ -2,6 +2,7 @@ package Utils;
 
 
 import java.util.ArrayList;
+import Player.*;
 
 public class Menu {
     /**
@@ -9,7 +10,7 @@ public class Menu {
      * ademas de los escenarios a los cuales puedes moverte
      * @param options
      */
-    public static void showMenu(ArrayList<String>options) {
+    public static void showMenu(Player player,ArrayList<String>options) {
         // Calcula el ancho del cajón según la longitud de la opción más larga
         int width = 0;
         for (String option : options) {
@@ -27,7 +28,7 @@ public class Menu {
         for (int i = 0; i < options.size(); i++) {
             String option = options.get(i);
             System.out.print("| ");
-            if (!option.equals("----INTERACT----") && !option.equals("----MOVE TO----") && !option.equals("----Inventory----")) {
+            if (!option.equals("    "+player.getCurrentScene()+"    ") && !option.equals("----INTERACT----") && !option.equals("----MOVE TO----") && !option.equals("----Inventory----") && !option.equals("----MORE----")) {
                 System.out.print("[" +c+ "] ");
                 System.out.print(option);
                 for (int j = 0; j < width - option.length() - 4; j++) {

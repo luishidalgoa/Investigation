@@ -1,5 +1,6 @@
 package Items;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Items {
     /**
@@ -11,11 +12,6 @@ public class Items {
      * En este ArrayList almacenamos todos los Items. Actua como inventario
      */
     private ArrayList<Item> ListItems;
-    /**
-     * Esta variable incrementara cada vez que se encuentre un item en el arrayList. de este modo conocemos el total de
-     * items en el inventario del escenario o jugador
-     */
-    static int count;
 
     /**
      * Este constructor creara desde 0 todos los Items pertinentes . Ademas de una lista Vacia
@@ -23,7 +19,6 @@ public class Items {
     public Items(){
         this.GameItems=new GameItems();
         this.ListItems=new ArrayList<>();
-        this.count=0;
     }
 
     /**
@@ -36,18 +31,15 @@ public class Items {
         //Ya que importamos la posicion en el ArrayList del item en cuestion. traducimos la posicion en el ArrList por el id buscado
         pos=searchID(pos);
         boolean isTrue=false;
-        if(ListItems.get(pos)!=null && this.ListItems.get(pos).getQuantity()>1){
+        if(ListItems.get(pos)!=null && this.ListItems.get(pos).getQuantity()-quantity>0){
             this.ListItems.get(pos).setQuantity(-quantity);
             isTrue=true;
         }else if(ListItems.get(pos)!=null){
+            ListItems.get(pos).setQuantity(-quantity);
             ListItems.remove(pos);
             isTrue=true;
         }else {
             System.out.println("ERROR NO EXISTE EL ITEM A BORRAR");
-        }
-
-
-        if(isTrue){
         }
         return isTrue;
     }
@@ -73,16 +65,14 @@ public class Items {
             System.out.println("ERROR");
         }
         if(isTrue==false){
-            this.ListItems.add(count,GameItems.getItem(id));
-            count++;
+            this.ListItems.add(GameItems.getItem(id));
             int pos=searchID(id);
             if(pos!=-1){
                 this.ListItems.get(pos).setQuantity(quantity);
             }
         }else{
             if(searchID(id)==-1){
-                this.ListItems.add(count,GameItems.getItem(id));
-                count++;
+                this.ListItems.add(GameItems.getItem(id));
             }else{
                 this.GameItems.getItem(id).setQuantity(quantity);
             }
@@ -103,9 +93,38 @@ public class Items {
         }
         return pos;
     }
+
+    /**
+     * Mostramos el id del item segun el nombre de la opcion que contenga en la posicion del array "option" indicado
+     * @param option nombre de la opcion
+     * @param pos posicion en la cual esta
+     * @return devuelve el id del nombre de esa opcion conocida
+     */
+    public int searchId(String option,int pos){
+        int id=-1;
+        for(int i=0;i<this.ListItems.size();i++){
+            if(this.ListItems.get(i).getOption(pos).equals(option)){
+                id=i;
+            }
+        }
+        return id;
+    }
     /**
      * Metodo que devuelve el ArrayList con todos los items registrados en el Inventario del objeto x
      * @return
      */
     public ArrayList<Item> getListItem(){return this.ListItems;}
+    /**
+     * Extrae todos los id de los items almacenados en el escenario. De este modo podemos extraer el id del item
+     * y asignarle en controlOptions su correspondiente comando
+     * @return
+     */
+    public ArrayList<Integer> getIdItems(ArrayList<Integer>id){ //Funciona Correctamente
+        for(int i=0;i<this.ListItems.size();i++){
+            if(this.ListItems.get(i)!=null){
+                id.add(this.ListItems.get(i).getId());
+            }
+        }
+        return id;
+    }
 }

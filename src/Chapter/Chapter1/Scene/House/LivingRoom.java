@@ -1,6 +1,9 @@
 package Chapter.Chapter1.Scene.House;
 
 import Items.Items;
+import Items.Objects.Objects;
+
+import java.util.ArrayList;
 
 public class LivingRoom {
     /**
@@ -12,6 +15,11 @@ public class LivingRoom {
      */
     private Items SceneItems;
     /**
+     * Este ArrayList representara los objetos del escenario interactuables como un cajon, o una puerta..
+     * Estos objetos podrian almacenar items que podran ser recojidos si estos estan en true
+     */
+    private ArrayList<Objects>Objects;
+    /**
      * Array que almacena todos los escenarios accesibles
      */
     private String[]moveToScene={"BedRoom"};
@@ -22,6 +30,7 @@ public class LivingRoom {
      */
     public LivingRoom(){
         this.SceneItems=new Items();
+        this.Objects=new ArrayList<>();
     }
 
     /**
@@ -48,13 +57,10 @@ public class LivingRoom {
      * y asignarle en controlOptions su correspondiente comando
      * @return
      */
-    public int[] getIdItems(){ //Funciona Correctamente
-        int n=0;
-        int[]id = new int[this.SceneItems.getListItem().size()];
+    public ArrayList<Integer> getIdItems(ArrayList<Integer>id){ //Funciona Correctamente
         for(int i=0;i<this.SceneItems.getListItem().size();i++){
             if(this.SceneItems.getListItem().get(i)!=null){
-                n++;
-                id[n-1]=this.SceneItems.getListItem().get(i).getId();
+                id.add(this.SceneItems.getListItem().get(i).getId());
             }
         }
         return id;
@@ -78,4 +84,5 @@ public class LivingRoom {
     public Items getSceneItems(){
         return this.SceneItems;
     }
+    public ArrayList<Objects> getObjects(){return this.Objects;}
 }

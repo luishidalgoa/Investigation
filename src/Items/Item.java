@@ -22,7 +22,7 @@ public class Item {
      */
     private int quantity;
     /**
-     * Nombre de la opcion a imprimir en el menu
+     * Nombre de los usos que puede tener el item
      */
     private String[] option=new String[2];
 
@@ -42,6 +42,7 @@ public class Item {
     public int getId(){return this.id;}
     public String getName(){return this.name;}
     public String getDescription(){return this.description;}
+    public void setDescription(String description){this.description=description;}
     public int getQuantity(){
         return this.quantity;
     }
